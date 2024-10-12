@@ -1,0 +1,69 @@
+using System;
+
+namespace Store
+{
+    // Класс Product представляет продукт в магазине
+    public class Product
+    {
+        // Свойства класса
+        public string Name { get; private set; } // Название товара
+        public decimal Price { get; private set; } // Цена товара
+        public int Stock { get; private set; } // Количество товара на складе
+
+        // Конструктор, который принимает все параметры
+        public Product(string name, decimal price, int stock)
+        {
+            Name = name; // Инициализация названия товара
+            Price = price; // Инициализация цены товара
+            Stock = stock; // Инициализация количества товара
+        }
+
+        // Конструктор, который принимает только название товара
+        public Product(string name) : this(name, 0, 0) // Установка цены и количества по умолчанию
+        {
+        }
+
+        // Метод для обновления цены товара
+        public void UpdatePrice(decimal newPrice)
+        {
+            Price = newPrice; // Обновляем цену товара
+        }
+
+        // Метод для пополнения запаса товара
+        public void Restock(int quantity)
+        {
+            // Проверяем, что количество для пополнения не отрицательное
+            if (quantity < 0)
+            {
+                Console.WriteLine("Количество не может быть отрицательным."); // Выводим сообщение об ошибке
+                return; // Выходим из метода
+            }
+            Stock += quantity; // Увеличиваем запас товара на складе
+        }
+
+        // Метод для получения информации о товаре
+        public string GetProductInfo()
+        {
+            // Формируем строку с информацией о товаре
+            return $"Товар: {Name}, Цена: {Price:C}, Остаток: {Stock}";
+        }
+
+        // Метод для продажи товара
+        public void Sell(int quantity)
+        {
+            // Проверяем, что количество для продажи не отрицательное
+            if (quantity < 0)
+            {
+                Console.WriteLine("Количество не может быть отрицательным."); // Выводим сообщение об ошибке
+                return; // Выходим из метода
+            }
+            // Проверяем, что достаточно товара на складе для продажи
+            if (quantity > Stock)
+            {
+                Console.WriteLine("Недостаточно товара на складе для продажи."); // Выводим сообщение об ошибке
+                return; // Выходим из метода
+            }
+            Stock -= quantity; // Уменьшаем запас на складе
+        }
+    }
+}
